@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="file.css" />
+	<title>Insert title here</title>
+</h:head>
+<h:body>
+
+	<h:form id="frm">
+		<p:toolbar>
+			<f:facet name="left">
+				<p:button value="Novo" icon="ui-icon-document"></p:button>
+				<p:button value="Abrir" icon="ui-icon-folder-open"></p:button>
+				<span class="ui-separator"> <span
+					class="ui-icon ui-icon-grip-dotted-vertical" />
+
+				</span>
+				<p:button icon="ui-icon-disk"></p:button>
+				<p:button icon="ui-icon-trash"></p:button>
+				<p:button icon="ui-icon-print"></p:button>
+
+
+			</f:facet>
+
+
+			<f:facet name="right">
+
+				<p:menuButton value="Opções">
+
+					<p:menuitem value="Salvar" icon="ui-icon-disk"></p:menuitem>
+					<p:menuitem value="Alterar" icon="ui-icon-arrowrefresh-1-w"></p:menuitem>
+					<p:menuitem value="Deletar" icon="ui-icon-trash"></p:menuitem>
+				</p:menuButton>
+
+
+			</f:facet>
+
+		</p:toolbar>
+
+		<p:messages autoUpdate="true" id="msg" />
+			<h:panelGrid columns="2"> 
+						<p:outputLabel value="Medicamento" />
+			<p:inputText size="30" value="#{medicamentoBean.medicamento.nome}"
+				required="true" label="Medicamento" />
+		<p:outputLabel value="Apresentação" />
+			<p:inputText size="30"
+				value="#{medicamentoBean.medicamento.apresentacao}" required="true"
+				label="Apresentação" />
+
+			<p:outputLabel value="Laboratorio" />
+			<p:selectOneMenu value="#{medicamentoBean.medicamento.laboratorio}"
+				required="true" label="Laborátorio">
+				<f:selectItem itemLabel="Selecione o labo´ratorio"
+					noSelectionOption="true" />
+				<f:selectItem itemLabel="Bayer" itemValue="Bayer" />
+				<f:selectItem itemLabel="Pratidonaduzi" itemValue="Pratidonaduzi" />
+				<f:selectItem itemLabel="E-MS" itemValue="E-MS" />
+				<f:selectItem itemLabel="Legrand" itemValue="Legrand" />
+				<f:selectItem itemLabel="Eurofarma" itemValue="Eurofarma" />
+				<f:selectItem itemLabel="Cimed" itemValue="Cimed" />
+				<f:selectItem itemLabel="Teuto" itemValue="Teuto" />
+				<f:selectItem itemLabel="Neo Química" itemValue="" />
+				<f:selectItem itemLabel="Actavis" itemValue="Actavis" />
+				<f:selectItem itemLabel="Nova Quimica" itemValue="Nova Quimica" />
+				<f:selectItem itemLabel="Biossintética" itemValue="Biossintética" />
+
+
+			</p:selectOneMenu>
+			
+					<p:outputLabel value="Registro" />
+			<p:inputMask mask="9.9999.9999.999-9" size="30"
+				value="#{medicamentoBean.medicamento.resgitro}" required="true"
+				label="Registro" />
+			
+				<p:outputLabel value="Preço" />
+			<p:inputText size="4" value="#{medicamentoBean.medicamento.preco}"
+				required="true" label="Preço">
+
+				<f:convertNumber minFractionDigits="2" locale="pt_BR"
+					minIntegerDigits="0" />
+
+			</p:inputText>
+			
+			
+			
+			<p:outputLabel />
+			
+			
+			<p:commandButton value="Cadastrar" update="frm"
+				action="#{medicamentoBean.adicionar}"
+				style="margin-top: 10px">
+			</p:commandButton>
+			
+			</h:panelGrid>
+			
+			
+					<p:dataTable value="#{medicamentoBean.medicamentos}" var="m"
+			id="tabela" paginator="true" rows="5" style="margin-top:10px">
+			<p:column headerText="Medicamento" width="100">
+				<p:outputLabel value="#{m.nome}" />
+			</p:column>
+
+			<p:column headerText="Apresentação" width="200">
+				<p:outputLabel value="#{m.apresentacao}" />
+			</p:column>
+
+			<p:column headerText="Laboratorio" width="200">
+				<p:outputLabel value="#{m.laboratorio}" />
+			</p:column>
+
+
+			<p:column headerText="Registro MS" width="150">
+				<p:outputLabel value="#{m.resgitro}" />
+			</p:column>
+
+			<p:column headerText="Preço" width="100">
+				<p:outputLabel value="#{m.preco}">
+					<f:convertNumber type="currency" currencySymbol="R$">
+					</f:convertNumber>
+				</p:outputLabel>
+			</p:column>
+			
+			
+			<p:column headerText="" width="100">
+				<p:commandButton icon="ui-icon-pencil" update="@form"
+					process="@this">
+					<f:setPropertyActionListener value="#{m}"
+						target="#{medicamentoBean.medicamento}">
+					</f:setPropertyActionListener>
+
+				</p:commandButton>
+				<p:commandButton action="#{medicamentoBean.excluir}"
+					icon="ui-icon-trash" update="tabela" process="@this" style="margin-top:10px">
+					<f:setPropertyActionListener value="#{m}"
+						target="#{medicamentoBean.medicamento}">
+					</f:setPropertyActionListener>
+
+				</p:commandButton>
+
+			</p:column>
+			
+			
+			
+		</p:dataTable>
+
+
+
+
+
+
+	</h:form>
+
+
+
+</h:body>
+</html>
